@@ -7,26 +7,18 @@
 
 class Group{
     private:
-    const uint8_t id;
+    const int id;
     const std::string name;
     std::string description;
-    std::vector<uint16_t> users;
-    std::vector<uint16_t> tasks;
+    std::vector<int> users;
+    std::vector<int> tasks;
 
     public:
-    uint8_t getID();
+    int getID();
     std::string getName();
     std::string getDescription();
-    std::vector<uint16_t> getUsers();
-    std::vector<uint16_t> getTasks();
-};
-
-struct Group_s{
-    uint8_t id;
-    std::string name;
-    std::string description;
-    std::vector<uint16_t> users;
-    std::vector<uint16_t> tasks;
+    std::vector<int> getUsers();
+    std::vector<int> getTasks();
 };
 
 #endif

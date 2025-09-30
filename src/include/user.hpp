@@ -8,24 +8,18 @@
 
 class User {
     private:
-    const uint16_t id;
+    const int id;
     const std::string name;
+    const std::string email;
     const time_t joinedOn;
     
     std::vector<uint16_t> task;
 
     public:
-    uint16_t getID();
+    int getID();
     std::string getName();
     time_t getJoinedOn();
-    std::vector<uint16_t> getTasks();
-};
-
-struct User_s{
-    uint16_t id;
-    std::string name;
-    time_t joinedOn;
-    std::vector<uint16_t> task;
+    std::vector<int> getTasks();
 };
 
 #endif

@@ -9,9 +9,9 @@
 
 class Task{
     private:
-    const uint16_t id;
-    const std::string creator;
-    std::string lastModifier;
+    const int id;
+    const int creatorID;
+    int lastModifierID;
     const time_t createdOn;
     time_t modifiedOn;
     
@@ -21,9 +21,9 @@ class Task{
 
     public:
 
-    uint16_t getNewID();
-    std::string getCreator();
-    std::string getModifier();
+    int getID();
+    int getCreatorID();
+    int getModifierID();
     time_t getCreateDate();
     time_t getModifiedDate();
 
@@ -32,13 +32,4 @@ class Task{
     TaskStatus getStatus();
 };
 
-struct Task_s{
-    uint16_t id;
-    std::string creator;
-    std::string lastModifier;
-    time_t createdOn;
-    std::string name;
-    std::string description;
-    TaskStatus status;
-};
 #endif

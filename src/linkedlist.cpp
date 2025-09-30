@@ -2,7 +2,7 @@
 #include <stdint.h>
 
     template<typename T>
-    void push(T value) {
+    void LinkedList<T>::push(T value) {
         Node<T>* aux = nullptr;
 
         if (head != nullptr) {
@@ -18,7 +18,7 @@
     };
 
     template<typename T>
-    bool delNode(uint16_t id) {
+    bool LinkedList<T>::delNode(int id) {
         Node<T>* aux = head;
         Node<T>* aux2 = nullptr;
         
@@ -42,7 +42,7 @@
     };
 
     template<typename T>
-    T* getData(uint16_t id) {
+    T* LinkedList<T>::getData(int id) {
         Node<T>* aux = nullptr;
 
         aux = head;
