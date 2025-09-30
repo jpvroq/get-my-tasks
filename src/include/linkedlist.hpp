@@ -6,24 +6,23 @@ struct Node {
     T data;
     Node<T>* next;
 
-    Node(const T& value) : data(value), next(nullptr);
+    Node(const T& value) : data(value), next(nullptr) {}
 };
 
 template<typename T>
 struct LinkedList {
     Node<T>* head;
 
-    LinkedList(const T& value): head(value);
+    LinkedList(const T& value): head(new Node<T>(value)) {}
 
     ~LinkedList() {
         clear();
     }
 
-    void push(T value);
-
+    bool push(T value);
     bool delNode(int id);
-
     T* getData(int id);
+    void clear();
 };
 
 #endif

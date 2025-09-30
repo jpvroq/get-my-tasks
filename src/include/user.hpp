@@ -6,9 +6,10 @@
 #include <ctime>
 #include <vector>
 
-class User {
+#include <entity.hpp>
+
+class User : public Entity {
     private:
-    const int id;
     const std::string name;
     const std::string email;
     const time_t joinedOn;
@@ -16,7 +17,9 @@ class User {
     std::vector<uint16_t> task;
 
     public:
-    int getID();
+    User(int id, std::string name, std::string email) :
+        Entity(id), name(name), email(email), joinedOn(std::time(0)) {}
+    ~User();
     std::string getName();
     time_t getJoinedOn();
     std::vector<int> getTasks();

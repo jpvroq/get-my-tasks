@@ -9,9 +9,9 @@
 
 class EntityManager{
     private:
-    LinkedList<Task> tasks;
-    LinkedList<Group> groups;
-    LinkedList<User> users;
+    LinkedList<Task*> tasks;
+    LinkedList<Group*> groups;
+    LinkedList<User*> users;
 
     public:
     Task* getTask(int id);
@@ -19,6 +19,7 @@ class EntityManager{
     Group* getGroup(int id);
     User* getUser(int id);
     std::vector<User*> getGroupUsers(int gid);
+    int getNewEntityID(EntityType type);
     bool deleteNode(int type, int id);
     bool addTask(int creatorID, std::string name, std::string description);
     bool addUser(std::string name, std::string email);
@@ -33,6 +34,7 @@ class EntityManager{
     bool removeTask(int taskID);
     bool removeUser(int userID);
     bool removeGroup(int groupID);
+    bool entityExist(EntityType type, int entityID);
 
 };
 

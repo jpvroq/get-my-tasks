@@ -2,19 +2,20 @@
 #include <stdint.h>
 
     template<typename T>
-    void LinkedList<T>::push(T value) {
+    bool LinkedList<T>::push(T value) {
         Node<T>* aux = nullptr;
 
         if (head != nullptr) {
             aux = head;
         } else {
             head = new Node(value);
-            return;
+            return false;
         }
         while (aux->next != nullptr) {
             aux = aux->next;
         }
         aux->next = new Node(value);
+        return true;
     };
 
     template<typename T>
@@ -52,4 +53,16 @@
             aux = aux->next;
         }
         return nullptr;
+    }
+
+    template<typename T>
+    void LinkedList<T>::clear() {
+        Node<T>* aux = head;
+        Node<T>* aux2 = nullptr;
+        head = nullptr;
+        while(aux) {
+            aux2 = aux;
+            aux = aux->next;
+            delete aux2;
+        }
     }
