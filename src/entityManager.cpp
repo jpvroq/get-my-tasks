@@ -82,9 +82,9 @@ int EntityManager::getNewEntityID(EntityType type) {
     return maxID + 1;
 }
 
-bool EntityManager::addTask(int creatorID, std::string name, std::string description) {
+bool EntityManager::addTask(int creatorID, std::string name, std::string description, std::time_t* deadline) {
     int id = getNewEntityID(EntityType::TASK);
-    return tasks.push(new Task(id, creatorID, name, description, TaskStatus::TODO));
+    return tasks.push(new Task(id, creatorID, name, description, TaskStatus::TODO, deadline));
 }
 
 bool EntityManager::addGroup(std::string name, std::string description, int creatorID) {
@@ -128,4 +128,48 @@ bool EntityManager::addTaskToGroup(int taskID, int groupID) {
         }
     }
     return false;
+}
+
+bool EntityManager::modifyTask(int taskID, std::string* name, std::string* description, TaskStatus* status, std::time_t* deadline, int modifierID) {
+        return this->getTask(taskID)->modifyTask(name, description, deadline, modifierID);
+}
+
+bool EntityManager::removeUserFromGroup(int userID, int groupID) {
+    if(this->getGroup(groupID)->userExist(userID)) {
+        this->getGroup(groupID)->removeUser(userID);
+    }
+}
+
+bool EntityManager::removeTaskFromUser(int taskID, int userID) {
+    User* usr = this->getUser(userID);
+    if (usr != nullptr) {
+        return usr->removeTask(taskID);
+    }
+    return false;
+}
+
+bool EntityManager::addTaskToUser(int userID, int taskID) {
+    User* usr = this->getUser(userID);
+    if (usr != nullptr) {
+        return usr->addTask(taskID);
+    }
+    return false;
+}
+
+bool EntityManager::removeTaskFromGroup(int groupID, int taskID) {
+    Group* grp = this->getGroup(groupID);
+    if (grp != nullptr) {
+        if (!grp->taskExist(taskID)) {
+            grp->addTask(taskID);
+            return true;
+        }
+    }
+    return false;
+}
+
+bool EntityManager::addUserToGroup(int userID, int groupID) {
+    Group* grp = this->getGroup(groupID);
+    if (grp != nullptr) {
+        
+    }
 }

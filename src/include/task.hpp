@@ -12,9 +12,10 @@
 class Task : public Entity{
     private:
     const int creatorID;
-    int lastModifierID;
+    int modifierID;
     const time_t createdOn;
     time_t modifiedOn;
+    time_t* deadline;
     
     std::string name;
     std::string description;
@@ -22,11 +23,11 @@ class Task : public Entity{
 
     public:
     Task(int id, int creatorID, std::string name,
-         std::string description, TaskStatus status) :
-         Entity(id), creatorID(creatorID), lastModifierID(creatorID), 
+         std::string description, TaskStatus status, std::time_t* deadline) :
+         Entity(id), creatorID(creatorID), modifierID(creatorID), 
          createdOn(std::time(0)),
          modifiedOn(std::time(0)),
-         name(name), description(description), status(status) {}
+         name(name), description(description), status(status), deadline(deadline) {}
     ~Task();
     int getCreatorID();
     int getModifierID();
@@ -36,6 +37,7 @@ class Task : public Entity{
     std::string getName();
     std::string getDescription();
     TaskStatus getStatus();
+    bool modifyTask(std::string* name, std::string* description, std::time_t* deadline, int modifierID);
     
 };
 

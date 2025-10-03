@@ -2,7 +2,7 @@
 #define ENTITYMANAGER_H
 
 #include <group.hpp>
-#include <tasks.hpp>
+#include <task.hpp>
 #include <user.hpp>
 #include <linkedlist.hpp>
 #include <entity.hpp>
@@ -21,13 +21,13 @@ class EntityManager{
     std::vector<User*> getGroupUsers(int gid);
     int getNewEntityID(EntityType type);
     bool deleteNode(int type, int id);
-    bool addTask(int creatorID, std::string name, std::string description);
+    bool addTask(int creatorID, std::string name, std::string description, std::time_t* deadline);
     bool addUser(std::string name, std::string email);
     bool addGroup(std::string name, std::string description, int userID);
     bool addUserToGroup(int userID, int groupID);
     bool addTaskToUser(int taskID, int userID);
     bool addTaskToGroup(int taskID, int groupID);
-    bool modifyTask(int taskID, std::string name, std::string description, TaskStatus status, int modifierID);
+    bool modifyTask(int taskID, std::string* name, std::string* description, TaskStatus* status, std::time_t* deadline, int modifierID);
     bool removeUserFromGroup(int userID, int groupID);
     bool removeTaskFromUser(int taskID, int userID);
     bool removeTaskFromGroup(int taskID, int groupID);

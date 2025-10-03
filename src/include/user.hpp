@@ -14,7 +14,7 @@ class User : public Entity {
     const std::string email;
     const time_t joinedOn;
     
-    std::vector<uint16_t> task;
+    std::vector<int> tasks;
 
     public:
     User(int id, std::string name, std::string email) :
@@ -23,6 +23,8 @@ class User : public Entity {
     std::string getName();
     time_t getJoinedOn();
     std::vector<int> getTasks();
+    bool removeTask(int taskID);
+    bool addTask(int taskID);
 };
 
 #endif
