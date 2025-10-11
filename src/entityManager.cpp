@@ -1,4 +1,5 @@
-# include <entityManager.hpp>
+#include <entityManager.hpp>
+
 #include <iostream>
 
 Task* EntityManager::getTask(int id){
@@ -84,17 +85,37 @@ int EntityManager::getNewEntityID(EntityType type) {
 
 bool EntityManager::addTask(int creatorID, std::string name, std::string description, std::time_t* deadline) {
     int id = getNewEntityID(EntityType::TASK);
-    return tasks.push(new Task(id, creatorID, name, description, TaskStatus::TODO, deadline));
+    tasks.push(new Task(id, creatorID, name, description, TaskStatus::TODO, deadline));
 }
 
 bool EntityManager::addGroup(std::string name, std::string description, int creatorID) {
     int id = getNewEntityID(EntityType::GROUP);
-    return groups.push(new Group(id, name, description, creatorID));
+    Group group = Group(id, name, description, creatorID);
+    if(groupExist(group)) return false;
+    groups.push(&group);
+    return true;
+}
+
+bool EntityManager::groupExist(Group& group) {
+    for(auto pos = groups.begin(); pos != groups.end(); pos++) {
+        if(*(*pos) == group) return true;
+    }
+    return false;
 }
 
 bool EntityManager::addUser(std::string name, std::string email) {
     int id = getNewEntityID(EntityType::USER);
-    return users.push(new User(id, name, email));
+    User user = User(id, name, email);
+    if(userExist(user)) return false;
+    users.push(&user);
+    return true;
+}
+
+bool EntityManager::userExist(User& user) {
+    for(auto pos = users.begin(); pos != users.end(); pos++) {
+        if(*(*pos) == user) return true;
+    }
+    return false;
 }
 
 bool EntityManager::entityExist(EntityType type, int entityID) {
@@ -140,6 +161,10 @@ bool EntityManager::removeUserFromGroup(int userID, int groupID) {
     }
 }
 
+bool EntityManager::removeUserFromGroup(int userID) {
+    //TODO
+}
+
 bool EntityManager::removeTaskFromUser(int taskID, int userID) {
     User* usr = this->getUser(userID);
     if (usr != nullptr) {
@@ -171,5 +196,16 @@ bool EntityManager::addUserToGroup(int userID, int groupID) {
     Group* grp = this->getGroup(groupID);
     if (grp != nullptr) {
         
+    }
+}
+
+bool EntityManager::removeEntity(EntityType type, int entityID) {
+    switch(type) {
+        case EntityType::GROUP:
+            return groups.delNode(entityID);
+            break;
+        case EntityType::USER:
+            //TODO
+            break;
     }
 }

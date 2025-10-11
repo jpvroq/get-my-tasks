@@ -1,68 +1,76 @@
 #include <linkedlist.hpp>
 #include <stdint.h>
 
-    template<typename T>
-    bool LinkedList<T>::push(T value) {
-        Node<T>* aux = nullptr;
-
-        if (head != nullptr) {
-            aux = head;
-        } else {
+    template<HasID T>
+    void LinkedList<T>::push(T value) {
+        
+        if(head == nullptr) {
             head = new Node(value);
-            return false;
+            tail = head;
         }
-        while (aux->next != nullptr) {
-            aux = aux->next;
+        else {
+            tail->next = new Node(value);
+            tail = tail->next;
         }
-        aux->next = new Node(value);
-        return true;
+        size++;
+        return;
     };
 
-    template<typename T>
+    template<HasID T>
     bool LinkedList<T>::delNode(int id) {
         Node<T>* aux = head;
         Node<T>* aux2 = nullptr;
         
         if (head != nullptr){
-            if(head->id == id){
+            if(head->data.id == id){
                 head = head->next;
                 delete aux;
+                size--;
                 return true;
             }
             return false;
         }
         while(aux->next != nullptr) {
-            if (aux->next->id == id) {
+            if (aux->next->data.id == id) {
                 aux2 = aux->next;
                 aux->next = aux->next->next;
                 delete aux2;
+                size--;
                 return true;
             }
         }
         return false;
     };
 
-    template<typename T>
+    template<HasID T>
     T* LinkedList<T>::getData(int id) {
         Node<T>* aux = nullptr;
 
         aux = head;
 
         while(aux != nullptr) {
-            if (aux->id == id) return &(aux->data);
+            if (aux->data.id == id) return &(aux->data);
             aux = aux->next;
         }
         return nullptr;
     }
 
-    template<typename T>
+    template<HasID T>
     void LinkedList<T>::clear() {
         Node<T>* aux = head;
-        Node<T>* aux2 = nullptr;
-        head = nullptr;
         while(aux) {
-            aux2 = aux;
-            aux = aux->next;
-            delete aux2;
+            head = head->next;
+            delete aux;
+            aux = head;
         }
+    }
+
+    template<HasID T>
+    LinkedList<T>::Iterator LinkedList<T>::begin() {
+        return Iterator(head, 0);
+    }
+
+    template<HasID T>
+    LinkedList<T>::Iterator LinkedList<T>::end() {
+        return Iterator(nullptr, size);
     }

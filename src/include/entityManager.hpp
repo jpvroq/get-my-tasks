@@ -29,12 +29,14 @@ class EntityManager{
     bool addTaskToGroup(int taskID, int groupID);
     bool modifyTask(int taskID, std::string* name, std::string* description, TaskStatus* status, std::time_t* deadline, int modifierID);
     bool removeUserFromGroup(int userID, int groupID);
+    bool removeUserFromGroup(int userID);
     bool removeTaskFromUser(int taskID, int userID);
     bool removeTaskFromGroup(int taskID, int groupID);
-    bool removeTask(int taskID);
-    bool removeUser(int userID);
-    bool removeGroup(int groupID);
+    bool removeEntity(EntityType type, int entityID);
     bool entityExist(EntityType type, int entityID);
+    bool userExist(User& user);
+    bool groupExist(Group& group);
+    bool taskExist(Task& task);
 
 };
 

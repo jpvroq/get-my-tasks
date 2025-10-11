@@ -29,6 +29,7 @@ class Group : public Entity {
     void removeUser(int userID);
     bool taskExist(int taskID);
     bool userExist(int userID);
+    bool operator==(Group& group);
 };
 
 #endif

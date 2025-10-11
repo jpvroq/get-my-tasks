@@ -25,6 +25,8 @@ class User : public Entity {
     std::vector<int> getTasks();
     bool removeTask(int taskID);
     bool addTask(int taskID);
+    bool operator==(const User& b);
+    bool operator!=(const User& b);
 };
 
 #endif

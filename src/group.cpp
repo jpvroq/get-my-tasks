@@ -30,3 +30,8 @@ bool Group::userExist(int userID) {
     if (it == users.end()) return false;
     return true;
 }
+
+bool Group::operator==(Group& group) {
+    if(name == group.getName()) return true;
+    return false;
+}

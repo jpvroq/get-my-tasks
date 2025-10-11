@@ -17,3 +17,12 @@ bool User::removeTask(int taskID) {
     }
     return false;
 }
+
+bool User::operator==(const User& b) {
+    if(name == b.name && email == b.email) return true;
+    return false;
+}
+
+bool User::operator!=(const User& b) {
+    return !(this == &b);
+}
