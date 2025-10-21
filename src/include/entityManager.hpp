@@ -31,6 +31,8 @@ class EntityManager{
     bool removeUserFromGroup(int userID, int groupID);
     bool removeUserFromGroup(int userID);
     bool removeTaskFromUser(int taskID, int userID);
+    bool removeTaskFromUser(int taskID);
+    bool removeTaskFromGroup(int taskID);
     bool removeTaskFromGroup(int taskID, int groupID);
     bool removeEntity(EntityType type, int entityID);
     bool entityExist(EntityType type, int entityID);

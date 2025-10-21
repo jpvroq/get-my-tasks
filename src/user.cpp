@@ -1,5 +1,33 @@
 #include <user.hpp>
 
+std::string User::getName() {
+    return name;
+}
+
+time_t User::getJoinedOn() {
+    return joinedOn;
+}
+
+bool User::modify(std::string* newName, std::string* newEmail) {
+    bool modified = false;
+    if(newName != nullptr) {
+        if(*newName != name){
+            name = *newName;
+            modified = true;
+        }
+    }
+    if(newEmail != nullptr) {
+        if(*newEmail != email) {
+            email = *newEmail;
+            modified = true;
+        }
+    }
+    if(modified) {
+        modifiedOn = std::time(0);
+    }
+    return modified;
+}
+
 bool User::addTask(int taskID) {
     for (int assignedTaskID : tasks) {
         if (assignedTaskID == taskID) return false;

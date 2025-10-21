@@ -85,7 +85,7 @@ int EntityManager::getNewEntityID(EntityType type) {
 
 bool EntityManager::addTask(int creatorID, std::string name, std::string description, std::time_t* deadline) {
     int id = getNewEntityID(EntityType::TASK);
-    tasks.push(new Task(id, creatorID, name, description, TaskStatus::TODO, deadline));
+    tasks.push(new Task(id, creatorID, name, description, TaskStatus::TODO, *deadline));
 }
 
 bool EntityManager::addGroup(std::string name, std::string description, int creatorID) {
@@ -162,7 +162,11 @@ bool EntityManager::removeUserFromGroup(int userID, int groupID) {
 }
 
 bool EntityManager::removeUserFromGroup(int userID) {
-    //TODO
+    for(auto pos = groups.begin(); pos != groups.end(); pos++) {
+        if((*pos)->userExist(userID)) {
+            (*pos)->removeUser(userID);
+        }
+    }
 }
 
 bool EntityManager::removeTaskFromUser(int taskID, int userID) {
@@ -173,12 +177,26 @@ bool EntityManager::removeTaskFromUser(int taskID, int userID) {
     return false;
 }
 
+bool EntityManager::removeTaskFromUser(int taskID) {
+    for(auto pos = users.begin(); pos != users.end(); pos++) {
+        (*pos)->removeTask(taskID);
+    }
+    return true;
+}
+
 bool EntityManager::addTaskToUser(int userID, int taskID) {
     User* usr = this->getUser(userID);
     if (usr != nullptr) {
         return usr->addTask(taskID);
     }
     return false;
+}
+
+bool EntityManager::removeTaskFromGroup(int taskID) {
+    for(auto pos = groups.begin(); pos != groups.end(); pos++) {
+        (*pos)->removeTask(taskID);
+    }
+    return true;
 }
 
 bool EntityManager::removeTaskFromGroup(int groupID, int taskID) {
@@ -205,7 +223,13 @@ bool EntityManager::removeEntity(EntityType type, int entityID) {
             return groups.delNode(entityID);
             break;
         case EntityType::USER:
-            //TODO
+            removeUserFromGroup(entityID);
+            return users.delNode(entityID);
+            break;
+        case EntityType::TASK:
+            removeTaskFromGroup(entityID);
+            removeTaskFromUser(entityID);
+            return tasks.delNode(entityID);
             break;
     }
 }

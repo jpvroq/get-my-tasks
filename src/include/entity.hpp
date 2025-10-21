@@ -8,7 +8,7 @@ enum EntityType {
 };
 
 class Entity {
-    private:
+    protected:
     const int id;
 
     public:

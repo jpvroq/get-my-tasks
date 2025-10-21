@@ -21,22 +21,21 @@
         Node<T>* aux = head;
         Node<T>* aux2 = nullptr;
         
-        if (head != nullptr){
+        if (head != nullptr) {
             if(head->data.id == id){
                 head = head->next;
                 delete aux;
                 size--;
                 return true;
             }
-            return false;
-        }
-        while(aux->next != nullptr) {
-            if (aux->next->data.id == id) {
-                aux2 = aux->next;
-                aux->next = aux->next->next;
-                delete aux2;
-                size--;
-                return true;
+            while(aux->next != nullptr) {
+                if (aux->next->data.id == id) {
+                    aux2 = aux->next;
+                    aux->next = aux->next->next;
+                    delete aux2;
+                    size--;
+                    return true;
+                }
             }
         }
         return false;

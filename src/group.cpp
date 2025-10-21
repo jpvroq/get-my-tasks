@@ -1,6 +1,22 @@
 #include <group.hpp>
 #include <bits/stdc++.h>
 
+std::string Group::getName() {
+    return name;
+}
+
+std::string Group::getDescription() {
+    return description;
+}
+
+std::vector<int> Group::getTasks() {
+    return tasks;
+}
+
+std::vector<int> Group::getUsers() {
+    return users;
+}
+
 void Group::addTask(int taskID) {
     tasks.push_back(taskID);
 }
@@ -34,4 +50,8 @@ bool Group::userExist(int userID) {
 bool Group::operator==(Group& group) {
     if(name == group.getName()) return true;
     return false;
+}
+
+bool Group::operator!=(Group& group) {
+    return !(this == &group);
 }

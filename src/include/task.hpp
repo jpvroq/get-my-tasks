@@ -15,7 +15,7 @@ class Task : public Entity{
     int modifierID;
     const time_t createdOn;
     time_t modifiedOn;
-    time_t* deadline;
+    time_t deadline;
     
     std::string name;
     std::string description;
@@ -23,7 +23,7 @@ class Task : public Entity{
 
     public:
     Task(int id, int creatorID, std::string name,
-         std::string description, TaskStatus status, std::time_t* deadline) :
+         std::string description, TaskStatus status, std::time_t deadline) :
          Entity(id), creatorID(creatorID), modifierID(creatorID), 
          createdOn(std::time(0)),
          modifiedOn(std::time(0)),

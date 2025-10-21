@@ -30,6 +30,7 @@ class Group : public Entity {
     bool taskExist(int taskID);
     bool userExist(int userID);
     bool operator==(Group& group);
+    bool operator!=(Group& group);
 };
 
 #endif
